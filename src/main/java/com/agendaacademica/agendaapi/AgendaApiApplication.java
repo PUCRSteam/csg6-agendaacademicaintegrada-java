@@ -1,13 +1,13 @@
-package grupo6.demo;
+package com.agendaacademica.agendaapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AgendaAcademicaApplication {
+public class AgendaApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AgendaAcademicaApplication.class, args);
+		SpringApplication.run(AgendaApiApplication.class, args);
 	}
 
 }

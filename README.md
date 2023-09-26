@@ -1,5 +1,22 @@
-# 2.6. Agenda Acadêmica Integrada:
+# Read Me
+O projeto precisa de Java na versão 17 junto de Maven para funcionar
 
-Sincronização com calendários acadêmicos, datas de provas, trabalhos e atividades extracurriculares.
-Configuração de lembretes personalizados para o aluno.
-Professores podem inserir datas importantes relativas a suas disciplinas.
+# Teste
+Para testar, basta executar a AgendaApliccation e executar o seguinte get: http://localhost:8080/agenda
+
+### Reference Documentation
+For further reference, please consider the following sections:
+
+* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
+* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.1.4/maven-plugin/reference/html/)
+* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.1.4/maven-plugin/reference/html/#build-image)
+* [Spring Web](https://docs.spring.io/spring-boot/docs/3.1.4/reference/htmlsingle/index.html#web)
+* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/3.1.4/reference/htmlsingle/index.html#using.devtools)
+
+### Guides
+The following guides illustrate how to use some features concretely:
+
+* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
+* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
+* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
+

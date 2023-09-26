@@ -1,10 +1,10 @@
-package grupo6.demo;
+package com.agendaacademica.agendaapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AgendaAcademicaApplicationTests {
+class AgendaApiApplicationTests {
 
 	@Test
 	void contextLoads() {
