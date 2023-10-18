@@ -4,7 +4,7 @@ COPY . /app
 
 WORKDIR /app
 
-CMD 
+CMD mvn package
 
 #COPY target/spring-app-0.0.1-SNAPSHOT.jar /app/spring-app.jar
 
