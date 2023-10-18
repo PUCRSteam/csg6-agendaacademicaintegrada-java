@@ -39,7 +39,7 @@ public class AgendaController {
         datasImportantesProfessor.put("Matemática", "15/02/2023 - Prova");
         datasImportantesProfessor.put("História", "20/02/2023 - Prova");
         agenda.setDatasImportantesProfessor(datasImportantesProfessor);
-        
+        System.out.println("tudo funcionando");
         return agenda;
     }
 }
