@@ -10,5 +10,4 @@ public class AgendaApiApplication {
 		SpringApplication.run(AgendaApiApplication.class, args);
 		System.out.println("funfa");
 	}
-
 }

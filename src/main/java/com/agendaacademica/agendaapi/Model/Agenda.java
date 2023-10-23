@@ -1,5 +1,7 @@
 package com.agendaacademica.agendaapi.Model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import java.util.HashMap;
@@ -13,14 +15,19 @@ public class Agenda {
     private Long id;
 
     private String nome;
-
+    @ElementCollection
     private List<String> calendarioAcademico;
+    @ElementCollection
     private List<String> datasDeProvas;
+    @ElementCollection
     private List<String> datasDeTrabalhos;
+    @ElementCollection
     private List<String> atividadesExtracurriculares;
 
+    @ElementCollection
     private Map<String, String> lembretes;
 
+    @ElementCollection
     private Map<String, String> datasImportantesProfessor;
 
     public Long getId() {
