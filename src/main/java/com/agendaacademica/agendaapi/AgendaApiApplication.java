@@ -8,6 +8,6 @@ public class AgendaApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AgendaApiApplication.class, args);
-		System.out.println("funfa");
+		System.out.println("funfa_main");
 	}
 }
