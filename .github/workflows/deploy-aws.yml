@@ -22,7 +22,7 @@ jobs:
                 mkdir deployment
                 rsync -Rr . deployment
                 zip -r codedeploy-example-master.zip deployment
-                aws s3 cp deployment.zip s3://${{ secrets.S3_BUCKET }}/
+                aws s3 cp codedeploy-example-master.zip s3://${{ secrets.S3_BUCKET }}/
 
             - name: Create deployment
               run: |
