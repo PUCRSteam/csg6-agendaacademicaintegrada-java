@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.HashMap;
-// import java.util.List;
+import java.util.List;
 
 import com.agendaacademica.agendaapi.Model.Agenda;
 
