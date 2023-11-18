@@ -23,6 +23,7 @@ jobs:
         run: mvn test
 
   deploy:
+      needs: build
       name: Deploy to AWS
       runs-on: ubuntu-latest
       steps:
