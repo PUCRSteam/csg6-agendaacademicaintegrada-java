@@ -1,6 +1,6 @@
 # FROM openjdk
 
-# # COPY . /app
+# COPY . /app
 
 # WORKDIR /app
 
@@ -12,6 +12,5 @@
 
 FROM eclipse-temurin:17-jdk-alpine
 VOLUME /tmp
-VOLUME /tmp
 COPY target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"] 
