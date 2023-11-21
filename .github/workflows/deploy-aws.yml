@@ -42,12 +42,24 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKERHUB_REPO_TAG }}
+        name: Build and Push Docker Image
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+
+          docker buildx create --use
+          docker buildx inspect --bootstrap
+
+          docker buildx build -t $DOCKERHUB_REPO_TAG:latest -t $DOCKERHUB_REPO_TAG:$GITHUB_SHA --push .
+
+        # name: Build and push
+        # uses: docker/build-push-action@v5
+        # with:
+        #   context: .
+        #   push: true
+        #   tags: 
 
   deploy:
       needs: docker
