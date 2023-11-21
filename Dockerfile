@@ -6,6 +6,6 @@ WORKDIR /app
 
 CMD mvn package
 
-COPY target/*.jar /app/spring-app.jar
+COPY --chown=appuser:appuser target/**.jar /app/spring-app.jar
 
 ENTRYPOINT ["java", "-jar","spring-app.jar"] 
