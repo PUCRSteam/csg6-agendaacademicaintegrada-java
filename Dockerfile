@@ -10,7 +10,7 @@
 
 # ENTRYPOINT ["java", "-jar","spring-app.jar"] 
 
-FROM eclipse-temurin:17-jdk-alpine
+FROM openjdk
 VOLUME /tmp
 ARG JAR_FILE
 COPY ${JAR_FILE} app.jar
