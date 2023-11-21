@@ -1,11 +1,17 @@
-FROM openjdk
+# FROM openjdk
 
-COPY . /app
+# # COPY . /app
 
-WORKDIR /app
+# WORKDIR /app
 
-CMD mvn package
+# CMD mvn package
 
-COPY --chown=appuser:appuser target/**.jar /app/spring-app.jar
+# COPY  target/agendaAcademica.jar /app/spring-app.jar
 
-ENTRYPOINT ["java", "-jar","spring-app.jar"] 
+# ENTRYPOINT ["java", "-jar","spring-app.jar"] 
+
+FROM eclipse-temurin:17-jdk-alpine
+VOLUME /tmp
+ARG JAR_FILE
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
