@@ -10,6 +10,6 @@ public class AgendaApiApplication {
 
 		SpringApplication.run(AgendaApiApplication.class, args);
 		
-		System.out.println("funfa_main_agendaapi");
+		System.out.println("agendaapi_main");
 	}
 }
