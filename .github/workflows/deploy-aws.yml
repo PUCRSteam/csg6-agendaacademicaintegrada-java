@@ -40,11 +40,6 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_REPO_TAG }}:latest
 
-  # deploy:
-  #     needs: build
-  #     name: Deploy to AWS
-  #     runs-on: ubuntu-latest
-  #     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -53,13 +48,10 @@ jobs:
             aws-session-token: ${{ secrets.SESSION_TOKEN }}
             aws-region: us-east-1
 
-      # - name: Checkout
-      #   uses: actions/checkout@v4
-
       - name: Upload to S3
         run: |
           mkdir deployment
-          rsync -Rr ./scripts/* .target/agendaAcademica.jar appspec.yml deployment
+          rsync -Rr ./scripts/* ./target/agendaAcademica.jar ./appspec.yml deployment
           zip -r deployment.zip deployment
           aws s3 cp deployment.zip s3://${{ secrets.S3_BUCKET }}/
 
