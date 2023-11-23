@@ -59,7 +59,7 @@ jobs:
       - name: Upload to S3
         run: |
           mkdir deployment
-          rsync -Rr . deployment
+          rsync -Rr ./target/agendaAcademica.jar deployment
           zip -r deployment.zip deployment
           aws s3 cp deployment.zip s3://${{ secrets.S3_BUCKET }}/
 
