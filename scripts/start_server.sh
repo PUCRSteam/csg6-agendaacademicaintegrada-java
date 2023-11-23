@@ -1,3 +1,4 @@
 #!/bin/bash
-cd /home/ubuntu
-java -jar target/agendaAcademica.jar --server.port=8080
+cd /home/ubuntu/target 
+export PATH=$PATH:/home/ubuntu/target/agendaAcademica.jar
+java -jar agendaAcademica.jar --server.port=8080
