@@ -1,3 +1,3 @@
 #!/bin/bash
 cd 
-java -jar agendaAcademica.jar --server.port=8080
+java -jar target/agendaAcademica.jar --server.port=8080
