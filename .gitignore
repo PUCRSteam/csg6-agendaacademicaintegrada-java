@@ -31,3 +31,16 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar arquivos de log do Terraform
+*.log
+
+# Ignorar arquivos temporários do Terraform
+*.tfstate.backup
+
+# Ignorar diretório de plugins
+.terraform/
+
+# Ignorar arquivos de configuração local
+terraform.rc
+
