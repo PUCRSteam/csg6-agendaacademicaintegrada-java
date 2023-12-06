@@ -25,7 +25,7 @@ resource "aws_instance" "CS-EC2-2" {
     iam_instance_profile                 = "LabInstanceProfile"
     instance_initiated_shutdown_behavior = "stop"
     instance_type                        = "t2.micro"
-    key_name                             = "local_1"
+    key_name                             = aws_key_pair.deployer.key_name
     monitoring                           = false
     placement_partition_number           = 0
     private_ip                           = "172.31.23.196"
@@ -45,7 +45,7 @@ resource "aws_instance" "CS-EC2-2" {
     }
     tenancy                              = "default"
     vpc_security_group_ids               = [
-        "sg-008911777ce210ae2",
+        "sg-008911777ce210ae2", aws_security_group.ec2-sg.id
     ]
 
     capacity_reservation_specification {
@@ -86,7 +86,6 @@ resource "aws_instance" "CS-EC2-2" {
     root_block_device {
         delete_on_termination = true
         encrypted             = false
-        iops                  = 100
         tags                  = {}
         throughput            = 0
         volume_size           = 8
@@ -96,39 +95,10 @@ resource "aws_instance" "CS-EC2-2" {
 
 # aws_s3_bucket.codedeploy:
 resource "aws_s3_bucket" "codedeploy" {
-    # arn                         = "arn:aws:s3:::codedeploy-s3-5956"
     bucket                      = "codedeploy-s3-5956"
-    # bucket_domain_name          = "codedeploy-s3-5956.s3.amazonaws.com"
-    # bucket_regional_domain_name = "codedeploy-s3-5956.s3.us-east-1.amazonaws.com"
-    # hosted_zone_id              = "Z3AQBSTGFYJSTF"
-    # id                          = "codedeploy-s3-5956"
     object_lock_enabled         = false
-    request_payer               = "BucketOwner"
     tags                        = {}
     tags_all                    = {}
-
-    grant {
-        id          = "f2589df62ab01a20eb1a70b9fd8617ef23917b60ee0942f347c2e3677ed4df97"
-        permissions = [
-            "FULL_CONTROL",
-        ]
-        type        = "CanonicalUser"
-    }
-    
-    server_side_encryption_configuration {
-        rule {
-            bucket_key_enabled = true
-
-            apply_server_side_encryption_by_default {
-                sse_algorithm = "AES256"
-            }
-        }
-    }
-
-    versioning {
-        enabled    = false
-        mfa_delete = false
-    }
 }
 
 resource "aws_codedeploy_app" "codedeploy-2" {
@@ -163,110 +133,6 @@ resource "aws_codedeploy_deployment_group" "producao-2" {
     }
 }
 
-# aws_iam_role.LabRole:
-resource "aws_iam_role" "LabRole" {
-    assume_role_policy    = jsonencode(
-        {
-            Statement = [
-                {
-                    Action    = "sts:AssumeRole"
-                    Effect    = "Allow"
-                    Principal = {
-                        AWS     = "arn:aws:iam::507308823394:role/LabRole"
-                        Service = [
-                            "quicksight.amazonaws.com",
-                            "robomaker.amazonaws.com",
-                            "resource-groups.amazonaws.com",
-                            "autoscaling.amazonaws.com",
-                            "ec2.application-autoscaling.amazonaws.com",
-                            "batch.amazonaws.com",
-                            "scheduler.amazonaws.com",
-                            "deepracer.amazonaws.com",
-                            "cloudformation.amazonaws.com",
-                            "s3.amazonaws.com",
-                            "states.amazonaws.com",
-                            "elasticmapreduce.amazonaws.com",
-                            "elasticbeanstalk.amazonaws.com",
-                            "firehose.amazonaws.com",
-                            "apigateway.amazonaws.com",
-                            "servicecatalog.amazonaws.com",
-                            "codewhisperer.amazonaws.com",
-                            "rds.amazonaws.com",
-                            "forecast.amazonaws.com",
-                            "athena.amazonaws.com",
-                            "credentials.iot.amazonaws.com",
-                            "datapipeline.amazonaws.com",
-                            "cloud9.amazonaws.com",
-                            "lex.amazonaws.com",
-                            "backup.amazonaws.com",
-                            "elasticloadbalancing.amazonaws.com",
-                            "iotevents.amazonaws.com",
-                            "iot.amazonaws.com",
-                            "ecs-tasks.amazonaws.com",
-                            "storagegateway.amazonaws.com",
-                            "iotanalytics.amazonaws.com",
-                            "cloudtrail.amazonaws.com",
-                            "sns.amazonaws.com",
-                            "ec2.amazonaws.com",
-                            "lambda.amazonaws.com",
-                            "glue.amazonaws.com",
-                            "logs.amazonaws.com",
-                            "cloudfront.amazonaws.com",
-                            "personalize.amazonaws.com",
-                            "application-autoscaling.amazonaws.com",
-                            "eks.amazonaws.com",
-                            "codecommit.amazonaws.com",
-                            "elasticfilesystem.amazonaws.com",
-                            "rekognition.amazonaws.com",
-                            "events.amazonaws.com",
-                            "sqs.amazonaws.com",
-                            "kendra.amazonaws.com",
-                            "kinesis.amazonaws.com",
-                            "codedeploy.amazonaws.com",
-                            "secretsmanager.amazonaws.com",
-                            "kinesisanalytics.amazonaws.com",
-                            "redshift.amazonaws.com",
-                            "ssm.amazonaws.com",
-                            "dynamodb.amazonaws.com",
-                            "cognito-idp.amazonaws.com",
-                            "databrew.amazonaws.com",
-                            "eks-fargate-pods.amazonaws.com",
-                            "sagemaker.amazonaws.com",
-                            "kms.amazonaws.com",
-                        ]
-                    }
-                },
-            ]
-            Version   = "2012-10-17"
-        }
-    )
-    force_detach_policies = false
-    # id                    = "LabRole"
-    managed_policy_arns   = [
-        "arn:aws:iam::507308823394:policy/c90096a1960297l5089351t1w507308823394-VocLabPolicy1-Ka6TXCxpAyFF",
-        "arn:aws:iam::507308823394:policy/c90096a1960297l5089351t1w507308823394-VocLabPolicy2-KkGPwqesGNsb",
-        "arn:aws:iam::507308823394:policy/c90096a1960297l5089351t1w507308823394-VocLabPolicy3-IyN3O63LS7li",
-        "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
-        "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
-        "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
-        "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
-    ]
-    max_session_duration  = 3600
-    name                  = "LabRole"
-    path                  = "/"
-    tags                  = {
-        "cloudlab" = "c90096a1960297l5089351t1w507308823394"
-    }
-    tags_all              = {
-        "cloudlab" = "c90096a1960297l5089351t1w507308823394"
-    }
-}
-
-resource "aws_iam_role_policy_attachment" "AdministratorAccess" {
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess" 
-  role       = aws_iam_role.LabRole.name
-}
-
 # aws_vpc.ec2-vpc:
 resource "aws_vpc" "ec2-vpc" {
     assign_generated_ipv6_cidr_block     = false
@@ -292,7 +158,7 @@ resource "aws_subnet" "ec2-subnet" {
     private_dns_hostname_type_on_launch            = "ip-name"
     tags                                           = {}
     tags_all                                       = {}
-    vpc_id                                         = "vpc-0b92234b99599c740"
+    vpc_id                                         = aws_vpc.ec2-vpc.id
 }
 
 # aws_security_group.ec2-sg:
@@ -359,5 +225,10 @@ resource "aws_security_group" "ec2-sg" {
     name        = "launch-wizard-3"
     tags        = {}
     tags_all    = {}
-    vpc_id      = "vpc-0b92234b99599c740"
+    vpc_id      = aws_vpc.ec2-vpc.id
+}
+
+resource "aws_key_pair" "deployer" {
+  key_name   = "deployer-key"
+  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBajvaeSOoDoPqciUKD/LI4wY51RvNhbyw2yllWnYotv isragraziolagarcia@gmail.com"
 }
